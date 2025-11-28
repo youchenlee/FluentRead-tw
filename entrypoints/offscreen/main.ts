@@ -5,8 +5,8 @@
 
 // 语言代码映射
 const languageMap: { [key: string]: string } = {
-    'zh-Hans': 'zh',
-    'zh-Hant': 'zh-TW',
+    'zh-Hans': 'zh-Hans',
+    'zh-Hant': 'zh-Hant',
     'en': 'en',
     'ja': 'ja',
     'ko': 'ko',

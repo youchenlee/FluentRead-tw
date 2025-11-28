@@ -2,27 +2,27 @@
   <!-- 开关 -->
   <el-row class="margin-bottom margin-left-2em">
     <el-col :span="20" class="lightblue rounded-corner">
-      <span class="popup-text popup-vertical-left">插件状态</span>
+      <span class="popup-text popup-vertical-left">擴充功能狀態</span>
     </el-col>
 
     <el-col :span="4" class="flex-end">
-      <el-switch v-model="config.on" inline-prompt active-text="开" inactive-text="关" @change="handlePluginStateChange" />
+      <el-switch v-model="config.on" inline-prompt active-text="開" inactive-text="關" @change="handlePluginStateChange" />
     </el-col>
   </el-row>
 
   <!-- 占位符 -->
   <div v-if="!config.on">
-    <el-empty description="插件处于禁用状态" />
+    <el-empty description="擴充功能處於禁用狀態" />
   </div>
 
   <div v-show="config.on">
     <!--    翻译模式-->
     <el-row class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
-        <span class="popup-text popup-vertical-left">翻译模式</span>
+        <span class="popup-text popup-vertical-left">翻譯模式</span>
       </el-col>
       <el-col :span="12">
-        <el-select v-model="config.display" placeholder="请选择翻译模式">
+        <el-select v-model="config.display" placeholder="請選擇翻譯模式">
           <el-option class="select-left" v-for="item in options.display" :key="item.value" :label="item.label"
             :value="item.value" />
         </el-select>
@@ -32,15 +32,15 @@
     <!--    译文样式选择器-->
     <el-row v-show="config.display === 1" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="选择双语模式下译文的显示样式，提供多种美观的效果" placement="top-start"
+        <el-tooltip class="box-item" effect="dark" content="選擇雙語模式下譯文的顯示樣式，提供多種美觀的效果" placement="top-start"
           :show-after="500">
-          <span class="popup-text popup-vertical-left">译文样式<el-icon class="icon-margin">
+          <span class="popup-text popup-vertical-left">譯文樣式<el-icon class="icon-margin">
               <ChatDotRound />
             </el-icon></span>
         </el-tooltip>
       </el-col>
       <el-col :span="12">
-        <el-select v-model="config.style" placeholder="请选择译文显示样式">
+        <el-select v-model="config.style" placeholder="請選擇譯文顯示樣式">
           <el-option-group v-for="group in styleGroups" :key="group.value" :label="group.label">
             <el-option v-for="item in group.options" :key="item.value" :label="item.label" :value="item.value"
               :class="item.class" />
@@ -52,16 +52,16 @@
     <!-- 翻译服务 -->
     <el-row class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="机器翻译：快速稳定，适合日常使用；AI翻译：更自然流畅，需要配置令牌" placement="top-start"
+        <el-tooltip class="box-item" effect="dark" content="機器翻譯：快速穩定，適合日常使用；AI 翻譯：更自然流暢，需要配置 Token" placement="top-start"
           :show-after="500">
-          <span class="popup-text popup-vertical-left">翻译服务<el-icon class="icon-margin">
+          <span class="popup-text popup-vertical-left">翻譯服務<el-icon class="icon-margin">
               <ChatDotRound />
             </el-icon></span>
         </el-tooltip>
       </el-col>
       <el-col :span="12">
         <b>
-          <el-select v-model="config.service" placeholder="请选择翻译服务">
+          <el-select v-model="config.service" placeholder="請選擇翻譯服務">
             <el-option class="select-left" v-for="item in compute.filteredServices" :key="item.value"
               :label="item.label" :value="item.value" :disabled="item.disabled"
               :class="{ 'select-divider': item.disabled }" />
@@ -73,10 +73,10 @@
     <!-- 目标语言 -->
     <el-row class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
-        <span class="popup-text popup-vertical-left">目标语言</span>
+        <span class="popup-text popup-vertical-left">目標語言</span>
       </el-col>
       <el-col :span="12">
-        <el-select v-model="config.to" placeholder="请选择目标语言">
+        <el-select v-model="config.to" placeholder="請選擇目標語言">
           <el-option class="select-left" v-for="item in options.to" :key="item.value" :label="item.label"
             :value="item.value" />
         </el-select>
@@ -88,9 +88,9 @@
     <!-- 鼠标悬浮快捷键 -->
     <el-row class="margin-bottom margin-left-2em" :class="{ 'custom-hotkey-row': config.hotkey === 'custom' }">
       <el-col :span="14" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="按住指定快捷键并悬停在文本上进行翻译" placement="top-start" :show-after="500">
+        <el-tooltip class="box-item" effect="dark" content="按住指定快捷鍵並懸停在文本上進行翻譯" placement="top-start" :show-after="500">
         <span class="popup-text popup-vertical-left">
-          鼠标悬浮快捷键
+          滑鼠懸浮快捷鍵
           <el-icon class="icon-margin">
             <ChatDotRound />
           </el-icon>
@@ -101,7 +101,7 @@
         <div class="hotkey-config">
           <el-select 
             v-model="config.hotkey" 
-            placeholder="请选择快捷键" 
+            placeholder="請選擇快捷鍵" 
             size="small" 
             style="width: 100%"
             @change="handleMouseHotkeyChange"
@@ -115,7 +115,7 @@
               {{ getCustomMouseHotkeyDisplayName() }}
             </span>
             <span class="hotkey-text placeholder-text" v-else>
-              点击设置自定义快捷键
+              點擊設定自定義快捷鍵
             </span>
             <el-button size="small" type="text" @click="openCustomMouseHotkeyDialog" class="edit-button">
               <el-icon><Edit /></el-icon>
@@ -128,10 +128,10 @@
     <!-- 全文翻译快捷键选择 -->
     <el-row v-if="config.on" class="margin-bottom margin-left-2em margin-top-1em" :class="{ 'custom-hotkey-row': config.floatingBallHotkey === 'custom' }">
       <el-col :span="14" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="（测试版）设置快捷键以便快速切换全文翻译状态，无需鼠标点击悬浮球" placement="top-start" :show-after="500">
+        <el-tooltip class="box-item" effect="dark" content="（測試版）設定快捷鍵以便快速切換全文翻譯狀態，無需滑鼠點擊懸浮球" placement="top-start" :show-after="500">
         <span class="popup-text popup-vertical-left">
           <!-- <span class="new-feature-badge">新</span> -->
-          全文翻译快捷键
+          全文翻譯快捷鍵
           <el-icon class="icon-margin">
             <ChatDotRound />
           </el-icon>
@@ -142,7 +142,7 @@
         <div class="hotkey-config">
           <el-select 
             v-model="config.floatingBallHotkey" 
-            placeholder="选择快捷键" 
+            placeholder="選擇快捷鍵" 
             size="small" 
             style="width: 100%"
             @change="handleHotkeyChange"
@@ -156,7 +156,7 @@
               {{ getCustomHotkeyDisplayName() }}
             </span>
             <span class="hotkey-text placeholder-text" v-else>
-              点击设置自定义快捷键
+              點擊設定自定義快捷鍵
             </span>
             <el-button size="small" type="text" @click="openCustomHotkeyDialog" class="edit-button">
               <el-icon><Edit /></el-icon>
@@ -170,10 +170,10 @@
     <!-- 划词翻译模式选择 -->
     <el-row v-if="config.on" class="margin-bottom margin-left-2em margin-top-1em">
       <el-col :span="14" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="选中文本后显示红点，鼠标移到红点上查看翻译结果。可选择关闭、双语显示或只显示译文" placement="top-start" :show-after="500">
-      <span class="popup-text popup-vertical-left">
+        <el-tooltip class="box-item" effect="dark" content="選中文本後顯示紅點，滑鼠移到紅點上查看翻譯結果。可選擇關閉、雙語顯示或只顯示譯文" placement="top-start" :show-after="500">
+        <span class="popup-text popup-vertical-left">
         <!-- <span class="new-feature-badge">新</span> -->
-        划词翻译
+        劃詞翻譯
         <el-icon class="icon-margin">
           <ChatDotRound />
         </el-icon>
@@ -181,10 +181,10 @@
         </el-tooltip>
       </el-col>
       <el-col :span="10" class="flex-end">
-        <el-select v-model="config.selectionTranslatorMode" placeholder="选择模式" size="small" style="width: 100%">
-          <el-option label="关闭" value="disabled" />
-          <el-option label="双语显示" value="bilingual" />
-          <el-option label="只显示译文" value="translation-only" />
+        <el-select v-model="config.selectionTranslatorMode" placeholder="選擇模式" size="small" style="width: 100%">
+          <el-option label="關閉" value="disabled" />
+          <el-option label="雙語顯示" value="bilingual" />
+          <el-option label="只顯示譯文" value="translation-only" />
         </el-select>
       </el-col>
     </el-row>
@@ -193,15 +193,15 @@
     <el-row v-show="compute.showToken" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
         <el-tooltip class="box-item" effect="dark"
-          content="API访问令牌仅保存在本地，用于访问翻译服务。获取方式请参考对应服务的官方文档；翻译服务为 ollama 时，token 可为任意值" placement="top-start"
+          content="API 訪問令牌僅保存在本地，用於訪問翻譯服務。獲取方式請參考對應服務的官方文檔；翻譯服務為 ollama 時，token 可為任意值" placement="top-start"
           :show-after="500">
-          <span class="popup-text popup-vertical-left">访问令牌<el-icon class="icon-margin">
+          <span class="popup-text popup-vertical-left">存取權杖<el-icon class="icon-margin">
               <ChatDotRound />
             </el-icon></span>
         </el-tooltip>
       </el-col>
       <el-col :span="12">
-        <el-input v-model="config.token[config.service]" type="password" show-password placeholder="请输入API访问令牌" />
+        <el-input v-model="config.token[config.service]" type="password" show-password placeholder="請輸入 API Token" />
       </el-col>
     </el-row>
 
@@ -209,9 +209,9 @@
     <el-row v-show="compute.showAzureOpenaiEndpoint" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
         <el-tooltip class="box-item" effect="dark"
-          content="Azure OpenAI 服务端点地址，必须包含完整的部署信息。格式：https://your-resource-name.openai.azure.com/openai/deployments/your-deployment-name/chat/completions?api-version=2024-02-15-preview" placement="top-start"
+          content="Azure OpenAI 服務端點位址，必須包含完整的部署資訊。格式：https://your-resource-name.openai.azure.com/openai/deployments/your-deployment-name/chat/completions?api-version=2024-02-15-preview" placement="top-start"
           :show-after="500">
-          <span class="popup-text popup-vertical-left">Azure 端点<el-icon class="icon-margin">
+          <span class="popup-text popup-vertical-left">Azure 端點<el-icon class="icon-margin">
               <ChatDotRound />
             </el-icon></span>
         </el-tooltip>
@@ -223,7 +223,7 @@
           :class="{ 'input-error': config.azureOpenaiEndpoint && !isValidAzureEndpoint(config.azureOpenaiEndpoint) }"
         />
         <div v-if="config.azureOpenaiEndpoint && !isValidAzureEndpoint(config.azureOpenaiEndpoint)" class="error-text">
-          端点地址格式不正确，请确保包含 openai.azure.com 域名和 /chat/completions 路径
+          端點位址格式不正確，請確保包含 openai.azure.com 域名和 /chat/completions 路徑
         </div>
       </el-col>
     </el-row>
@@ -232,9 +232,9 @@
     <el-row v-show="compute.showDeepLX" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
         <el-tooltip class="box-item" effect="dark"
-          content="DeepLX API 服务地址，默认为本地地址。如果使用远程 DeepLX 服务，请修改为对应的服务地址" placement="top-start"
+          content="DeepLX API 服務位址，默認為本地位址。如果使用遠端 DeepLX 服務，請修改為對應的服務位址" placement="top-start"
           :show-after="500">
-          <span class="popup-text popup-vertical-left">服务地址</span>
+          <span class="popup-text popup-vertical-left">服務位址</span>
         </el-tooltip>
       </el-col>
       <el-col :span="12">
@@ -245,7 +245,7 @@
     <!-- 使用AkSk -->
     <el-row v-show="compute.showAkSk" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="百度文心一言API密钥对，用于访问翻译服务" placement="top-start"
+        <el-tooltip class="box-item" effect="dark" content="百度文心一言 API 密鑰對，用於訪問翻譯服務" placement="top-start"
           :show-after="500">
           <span class="popup-text popup-vertical-left">API Key<el-icon class="icon-margin">
               <ChatDotRound />
@@ -253,12 +253,12 @@
         </el-tooltip>
       </el-col>
       <el-col :span="12">
-        <el-input v-model="config.ak" placeholder="请输入Access Key" />
+        <el-input v-model="config.ak" placeholder="請輸入 Access Key" />
       </el-col>
     </el-row>
     <el-row v-show="compute.showAkSk" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="百度文心一言API密钥对，用于访问翻译服务" placement="top-start"
+        <el-tooltip class="box-item" effect="dark" content="百度文心一言 API 密鑰對，用於訪問翻譯服務" placement="top-start"
           :show-after="500">
           <span class="popup-text popup-vertical-left">Secret Key<el-icon class="icon-margin">
               <ChatDotRound />
@@ -266,14 +266,14 @@
         </el-tooltip>
       </el-col>
       <el-col :span="12">
-        <el-input v-model="config.sk" type="password" placeholder="请输入Secret Key" />
+        <el-input v-model="config.sk" type="password" placeholder="請輸入 Secret Key" />
       </el-col>
     </el-row>
 
     <!-- 有道翻译配置 -->
     <el-row v-show="compute.showYoudao" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="有道智云翻译API应用ID，用于访问有道翻译服务。可在有道智云控制台获取" placement="top-start"
+        <el-tooltip class="box-item" effect="dark" content="有道智雲翻譯 API 應用 ID，用於訪問有道翻譯服務。可在有道智雲控制台獲取" placement="top-start"
           :show-after="500">
           <span class="popup-text popup-vertical-left">App Key<el-icon class="icon-margin">
               <ChatDotRound />
@@ -286,7 +286,7 @@
     </el-row>
     <el-row v-show="compute.showYoudao" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="有道智云翻译API应用密钥，用于访问有道翻译服务。可在有道智云控制台获取" placement="top-start"
+        <el-tooltip class="box-item" effect="dark" content="有道智雲翻譯 API 應用密鑰，用於訪問有道翻譯服務。可在有道智雲控制台獲取" placement="top-start"
           :show-after="500">
           <span class="popup-text popup-vertical-left">App Secret<el-icon class="icon-margin">
               <ChatDotRound />
@@ -301,7 +301,7 @@
     <!-- 腾讯云机器翻译配置 -->
     <el-row v-show="compute.showTencent" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="腾讯云API访问密钥ID，用于访问腾讯云机器翻译服务。可在腾讯云控制台的访问管理中获取" placement="top-start"
+        <el-tooltip class="box-item" effect="dark" content="騰訊雲 API 訪問密鑰 ID，用於訪問騰訊雲機器翻譯服務。可在騰訊雲控制台的訪問管理中獲取" placement="top-start"
           :show-after="500">
           <span class="popup-text popup-vertical-left">Secret ID<el-icon class="icon-margin">
               <ChatDotRound />
@@ -314,7 +314,7 @@
     </el-row>
     <el-row v-show="compute.showTencent" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="腾讯云API访问密钥，用于访问腾讯云机器翻译服务。可在腾讯云控制台的访问管理中获取" placement="top-start"
+        <el-tooltip class="box-item" effect="dark" content="騰訊雲 API 訪問密鑰，用於訪問騰訊雲機器翻譯服務。可在騰訊雲控制台的訪問管理中獲取" placement="top-start"
           :show-after="500">
           <span class="popup-text popup-vertical-left">Secret Key<el-icon class="icon-margin">
               <ChatDotRound />
@@ -329,44 +329,44 @@
     <!--  Coze需显示 robot_id -->
     <el-row v-show="compute.showRobotId" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="Coze机器人ID，可在Coze开发者文档中查看获取方式" placement="top-start"
+        <el-tooltip class="box-item" effect="dark" content="Coze 機器人 ID，可在 Coze 開發者文檔中查看獲取方式" placement="top-start"
           :show-after="500">
-          <span class="popup-text popup-vertical-left">机器人ID<el-icon class="icon-margin">
+          <span class="popup-text popup-vertical-left">機器人 ID<el-icon class="icon-margin">
               <ChatDotRound />
             </el-icon></span>
         </el-tooltip>
       </el-col>
       <el-col :span="12">
-        <el-input v-model="config.robot_id[config.service]" placeholder="请输入Coze机器人ID" />
+        <el-input v-model="config.robot_id[config.service]" placeholder="請輸入 Coze 機器人 ID" />
       </el-col>
     </el-row>
 
     <!-- 本地大模型配置 -->
     <el-row v-show="compute.showCustom" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="目前仅支持OpenAI格式的请求接口，如http://localhost:3000/v1/chat/completions，其中 localhost:11434 可更换为任意值。
-                     ollama 配置请参考：https://fluent.thinkstu.com/guide/faq.html" placement="top-start" :show-after="500">
-          <span class="popup-text popup-vertical-left">自定义接口<el-icon class="icon-margin">
+        <el-tooltip class="box-item" effect="dark" content="目前僅支持 OpenAI 格式的請求介面，如 http://localhost:3000/v1/chat/completions，其中 localhost:11434 可更換為任意值。
+                      ollama 配置請參考：https://fluent.thinkstu.com/guide/faq.html" placement="top-start" :show-after="500">
+          <span class="popup-text popup-vertical-left">自定義介面<el-icon class="icon-margin">
               <ChatDotRound />
             </el-icon></span>
         </el-tooltip>
       </el-col>
       <el-col :span="12">
-        <el-input v-model="config.custom" placeholder="请输入自定义接口地址" />
+        <el-input v-model="config.custom" placeholder="請輸入自定義介面位址" />
       </el-col>
     </el-row>
 
     <!-- NewAPI 配置 -->
     <el-row v-show="compute.showNewAPI" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
-        <el-tooltip class="box-item" effect="dark" content="填写 New API 的访问地址，如：http://localhost:3000" placement="top-start" :show-after="500">
-          <span class="popup-text popup-vertical-left">NewAPI接口<el-icon class="icon-margin">
+        <el-tooltip class="box-item" effect="dark" content="填寫 New API 的訪問位址，如：http://localhost:3000" placement="top-start" :show-after="500">
+          <span class="popup-text popup-vertical-left">NewAPI 介面<el-icon class="icon-margin">
               <ChatDotRound />
             </el-icon></span>
         </el-tooltip>
       </el-col>
       <el-col :span="12">
-        <el-input v-model="config.newApiUrl" placeholder="请输入您的New API接口地址" />
+        <el-input v-model="config.newApiUrl" placeholder="請輸入您的 New API 介面位址" />
       </el-col>
     </el-row>
 
@@ -376,7 +376,7 @@
         <span class="popup-text popup-vertical-left">模型</span>
       </el-col>
       <el-col :span="12">
-        <el-select v-model="config.model[config.service]" placeholder="请选择模型">
+        <el-select v-model="config.model[config.service]" placeholder="請選擇模型">
           <el-option class="select-left" v-for="item in compute.model" :key="item" :label="item" :value="item" />
         </el-select>
       </el-col>
@@ -385,9 +385,9 @@
     <el-row v-show="compute.showCustomModel" class="margin-bottom margin-left-2em">
       <el-col :span="12" class="lightblue rounded-corner">
         <el-tooltip class="box-item" effect="dark"
-          :content="config.service === 'doubao' ? '豆包的model为接入点，获取方式见官方文档：https://console.volcengine.com/ark/region:ark+cn-beijing/endpoint' : '注意：自定义模型名称需要与服务商提供的模型名称一致，否则无法使用！'"
+          :content="config.service === 'doubao' ? '豆包的 model 為接入點，獲取方式見官方文檔：https://console.volcengine.com/ark/region:ark+cn-beijing/endpoint' : '注意：自定義模型名稱需要與服務商提供的模型名稱一致，否則無法使用！'"
           placement="top-start" :show-after="500">
-          <span class="popup-text popup-vertical-left">{{ config.service === 'doubao' ? '接入点' : '自定义模型' }}<el-icon
+          <span class="popup-text popup-vertical-left">{{ config.service === 'doubao' ? '接入點' : '自定義模型' }}<el-icon
               class="icon-margin">
               <ChatDotRound />
             </el-icon></span>
@@ -400,15 +400,15 @@
 
     <!-- 高级选项-->
     <el-collapse class="margin-left-2em margin-bottom">
-      <el-collapse-item title="高级选项">
+      <el-collapse-item title="進階選項">
 
-        <!-- 主题设置 -->
+        <!-- 主題設定 -->
         <el-row class="margin-bottom margin-left-2em margin-top-2em">
           <el-col :span="12" class="lightblue rounded-corner">
-            <span class="popup-text popup-vertical-left">主题设置</span>
+            <span class="popup-text popup-vertical-left">主題設定</span>
           </el-col>
           <el-col :span="12">
-            <el-select v-model="config.theme" placeholder="请选择主题模式">
+            <el-select v-model="config.theme" placeholder="請選擇主題模式">
               <el-option class="select-left" v-for="item in options.theme" :key="item.value" :label="item.label"
                          :value="item.value" />
             </el-select>
@@ -418,25 +418,25 @@
         <!-- 缓存开关 -->
         <el-row class="margin-bottom margin-left-2em">
           <el-col :span="20" class="lightblue rounded-corner">
-            <el-tooltip class="box-item" effect="dark" content="开启缓存可以提高翻译速度，减少重复请求，但可能导致翻译结果不是最新的" placement="top-start" :show-after="500">
-        <span class="popup-text popup-vertical-left">缓存翻译结果<el-icon class="icon-margin">
+            <el-tooltip class="box-item" effect="dark" content="開啟快取可以提高翻譯速度，減少重複請求，但可能導致翻譯結果不是最新的" placement="top-start" :show-after="500">
+        <span class="popup-text popup-vertical-left">快取翻譯結果<el-icon class="icon-margin">
             <ChatDotRound />
           </el-icon></span>
             </el-tooltip>
           </el-col>
 
           <el-col :span="4" class="flex-end">
-            <el-switch v-model="config.useCache" inline-prompt active-text="启用" inactive-text="禁用"/>
+            <el-switch v-model="config.useCache" inline-prompt active-text="啟用" inactive-text="禁用"/>
           </el-col>
         </el-row>
 
         <!-- 悬浮球开关 -->
       <el-row v-if="config.on" class="margin-bottom margin-left-2em margin-top-1em">
         <el-col :span="20" class="lightblue rounded-corner">
-          <el-tooltip class="box-item" effect="dark" content="（测试版）控制是否显示屏幕边缘的即时翻译悬浮球，用于对整个网页进行翻译" placement="top-start" :show-after="500">
+          <el-tooltip class="box-item" effect="dark" content="（測試版）控制是否顯示螢幕邊緣的即時翻譯懸浮球，用於對整個網頁進行翻譯" placement="top-start" :show-after="500">
           <span class="popup-text popup-vertical-left">
             <!-- <span class="new-feature-badge">新</span> -->
-            全文翻译悬浮球
+            全文翻譯懸浮球
             <el-icon class="icon-margin">
               <ChatDotRound />
             </el-icon>
@@ -445,7 +445,7 @@
         </el-col>
 
         <el-col :span="4" class="flex-end">
-          <el-switch v-model="floatingBallEnabled" inline-prompt active-text="启用" inactive-text="禁用" />
+          <el-switch v-model="floatingBallEnabled" inline-prompt active-text="啟用" inactive-text="禁用" />
         </el-col>
       </el-row>
 
@@ -454,31 +454,31 @@
         <el-row class="margin-bottom margin-left-2em">
           <el-col :span="20" class="lightblue rounded-corner">
             <el-tooltip class="box-item" effect="dark"
-                        content="翻译进度面板（默认关）：关闭后将不再显示右下角的全文翻译进度面板，适合移动端或希望更少打扰的用户。"
+                        content="翻譯進度面板（默認關）：關閉後將不再顯示右下角的全文翻譯進度面板，適合移動端或希望更少打擾的用戶。"
                         placement="top-start" :show-after="500">
-          <span class="popup-text popup-vertical-left">翻译进度面板<el-icon class="icon-margin">
+          <span class="popup-text popup-vertical-left">翻譯進度面板<el-icon class="icon-margin">
               <ChatDotRound />
             </el-icon></span>
             </el-tooltip>
           </el-col>
           <el-col :span="4" class="flex-end">
-          <el-switch v-model="config.translationStatus" inline-prompt active-text="启动" inactive-text="禁用" />
+          <el-switch v-model="config.translationStatus" inline-prompt active-text="啟動" inactive-text="禁用" />
           </el-col>
         </el-row>
 
-        <!-- 禁用动画设置 -->
+        <!-- 禁用動畫設定 -->
         <el-row class="margin-bottom margin-left-2em">
           <el-col :span="20" class="lightblue rounded-corner">
             <el-tooltip class="box-item" effect="dark"
-                        content="动画效果（默认开）：禁用后将关闭加载/悬浮等动画，以节省GPU资源和电量。适合低配置设备或希望节省资源的用户。"
+                        content="動畫效果（默認開）：禁用後將關閉加載/懸浮等動畫，以節省 GPU 資源和電量。適合低配置設備或希望節省資源的用戶。"
                         placement="top-start" :show-after="500">
-              <span class="popup-text popup-vertical-left">动画效果<el-icon class="icon-margin">
+              <span class="popup-text popup-vertical-left">動畫效果<el-icon class="icon-margin">
                   <ChatDotRound />
                 </el-icon></span>
             </el-tooltip>
           </el-col>
           <el-col :span="4" class="flex-end">
-            <el-switch v-model="config.animations" inline-prompt active-text="启动" inactive-text="禁用" />
+            <el-switch v-model="config.animations" inline-prompt active-text="啟動" inactive-text="禁用" />
           </el-col>
         </el-row>
 
@@ -486,15 +486,15 @@
         <el-row class="margin-bottom margin-left-2em">
           <el-col :span="12" class="lightblue rounded-corner">
             <el-tooltip class="box-item" effect="dark"
-                        content="输入框翻译：在任何文本输入框中使用指定方式触发翻译当前输入的内容。"
+                        content="輸入框翻譯：在任何文本輸入框中使用指定方式觸發翻譯當前輸入的內容。"
                         placement="top-start" :show-after="500">
-              <span class="popup-text popup-vertical-left">输入框翻译<el-icon class="icon-margin">
+              <span class="popup-text popup-vertical-left">輸入框翻譯<el-icon class="icon-margin">
                   <ChatDotRound />
                 </el-icon></span>
             </el-tooltip>
           </el-col>
           <el-col :span="12">
-            <el-select v-model="config.inputBoxTranslationTrigger" placeholder="请选择触发方式">
+            <el-select v-model="config.inputBoxTranslationTrigger" placeholder="請選擇觸發方式">
               <el-option class="select-left" v-for="item in options.inputBoxTranslationTrigger" :key="item.value" 
                          :label="item.label" :value="item.value" />
             </el-select>
@@ -504,10 +504,10 @@
         <!-- 输入框翻译目标语言 -->
         <el-row v-if="config.inputBoxTranslationTrigger !== 'disabled'" class="margin-bottom margin-left-2em">
           <el-col :span="12" class="lightblue rounded-corner">
-            <span class="popup-text popup-vertical-left">翻译目标语言</span>
+            <span class="popup-text popup-vertical-left">翻譯目標語言</span>
           </el-col>
           <el-col :span="12">
-            <el-select v-model="config.inputBoxTranslationTarget" placeholder="请选择目标语言">
+            <el-select v-model="config.inputBoxTranslationTarget" placeholder="請選擇目標語言">
               <el-option class="select-left" v-for="item in options.inputBoxTranslationTarget" :key="item.value" 
                          :label="item.label" :value="item.value" />
             </el-select>
@@ -517,9 +517,9 @@
         <!-- 翻译并发数 -->
         <el-row class="margin-bottom margin-left-2em">
           <el-col :span="12" class="lightblue rounded-corner">
-            <el-tooltip class="box-item" effect="dark" content="控制同时进行的最大翻译任务数，数值越高翻译速度越快，但可能占用更多系统资源" placement="top-start"
+            <el-tooltip class="box-item" effect="dark" content="控制同時進行的最大翻譯任務數，數值越高翻譯速度越快，但可能佔用更多系統資源" placement="top-start"
                         :show-after="500">
-          <span class="popup-text popup-vertical-left">翻译并发数<el-icon class="icon-margin">
+          <span class="popup-text popup-vertical-left">翻譯並發數<el-icon class="icon-margin">
               <ChatDotRound />
             </el-icon></span>
             </el-tooltip>
@@ -540,22 +540,22 @@
         <!-- 使用代理转发 -->
         <el-row v-show="compute.showProxy" class="margin-bottom margin-left-2em">
           <el-col :span="8" class="lightblue rounded-corner">
-            <el-tooltip class="box-item" effect="dark" content="使用代理可以解决网络无法访问的问题，如不熟悉代理设置请留空！" placement="top-start"
+            <el-tooltip class="box-item" effect="dark" content="使用代理可以解決網絡無法訪問的問題，如不熟悉代理設定請留空！" placement="top-start"
                         :show-after="500">
-              <span class="popup-text popup-vertical-left">代理地址<el-icon class="icon-margin">
+              <span class="popup-text popup-vertical-left">代理位址<el-icon class="icon-margin">
                   <ChatDotRound />
                 </el-icon></span>
             </el-tooltip>
           </el-col>
           <el-col :span="16">
-            <el-input v-model="config.proxy[config.service]" placeholder="默认不使用代理" />
+            <el-input v-model="config.proxy[config.service]" placeholder="預設不使用代理" />
           </el-col>
         </el-row>
 
         <!-- 角色和模板 -->
         <el-row v-show="compute.showAI" class="margin-bottom margin-left-2em">
           <el-col :span="8" class="lightblue rounded-corner">
-            <el-tooltip class="box-item" effect="dark" content="以系统身份 system 发送的对话，常用于指定 AI 要扮演的角色"
+            <el-tooltip class="box-item" effect="dark" content="以系統身份 system 發送的對話，常用於指定 AI 要扮演的角色"
               placement="top-start" :show-after="500">
               <span class="popup-text popup-vertical-left">system<el-icon class="icon-margin">
                   <ChatDotRound />
@@ -570,7 +570,7 @@
         <el-row v-show="compute.showAI" class="margin-bottom margin-left-2em">
           <el-col :span="8" class="lightblue rounded-corner">
             <el-tooltip class="box-item" effect="dark"
-              content="以用户身份 user 发送的对话，其中{{to}}表示目标语言，{{origin}}表示待翻译的文本内容，两者不可缺少。"
+              content="以用戶身份 user 發送的對話，其中{{to}}表示目標語言，{{origin}}表示待翻譯的文本內容，兩者不可缺少。"
               placement="top-start" :show-after="500">
               <span class="popup-text popup-vertical-left">user<el-icon class="icon-margin">
                   <ChatDotRound />
@@ -589,7 +589,7 @@
               <el-icon>
                 <Refresh />
               </el-icon>
-              恢复默认模板
+              恢復預設模板
             </el-button>
           </el-col>
         </el-row>
@@ -606,7 +606,7 @@
               <el-icon>
                 <Download />
               </el-icon>
-              导出配置
+              匯出配置
             </el-button>
           </el-col>
           <el-col :span="12">
@@ -614,7 +614,7 @@
               <el-icon>
                 <Upload />
               </el-icon>
-              导入配置
+              匯入配置
             </el-button>
           </el-col>
         </el-row>
@@ -629,9 +629,9 @@
         <!-- 导入配置 -->
         <el-row v-if="showImportBox" class="margin-bottom margin-left-2em">
           <el-col :span="24">
-            <el-input v-model="importData" type="textarea" :rows="8" placeholder="请在此处粘贴您的JSON配置" />
+            <el-input v-model="importData" type="textarea" :rows="8" placeholder="請在此處貼上您的 JSON 配置" />
             <div style="margin-top: 10px; text-align: right;">
-              <el-button @click="saveImport">保存</el-button>
+              <el-button @click="saveImport">儲存</el-button>
             </div>
           </el-col>
         </el-row>
@@ -791,10 +791,10 @@ const styleGroups = computed(() => {
 // 恢复默认模板
 const resetTemplate = () => {
   ElMessageBox.confirm(
-    '确定要恢复默认的 system 和 user 模板吗？此操作将覆盖当前的自定义模板。',
-    '恢复默认模板',
+    '確定要恢復預設的 system 和 user 模板嗎？此操作將覆蓋目前的自定義模板。',
+    '恢復預設模板',
     {
-      confirmButtonText: '确定',
+      confirmButtonText: '確定',
       cancelButtonText: '取消',
       type: 'warning',
     }
@@ -948,7 +948,7 @@ const handleCustomHotkeyConfirm = (hotkey: string) => {
   config.value.floatingBallHotkey = 'custom';
   
   ElMessage({
-    message: hotkey === 'none' ? '已禁用快捷键' : `快捷键已设置为: ${getCustomHotkeyDisplayName()}`,
+    message: hotkey === 'none' ? '已禁用快捷鍵' : `快捷鍵已設定為: ${getCustomHotkeyDisplayName()}`,
     type: 'success',
     duration: 2000
   });
@@ -998,7 +998,7 @@ const handleCustomMouseHotkeyConfirm = (hotkey: string) => {
   config.value.hotkey = 'custom';
   
   ElMessage({
-    message: hotkey === 'none' ? '已禁用快捷键' : `快捷键已设置为: ${getCustomMouseHotkeyDisplayName()}`,
+    message: hotkey === 'none' ? '已禁用快捷鍵' : `快捷鍵已設定為: ${getCustomMouseHotkeyDisplayName()}`,
     type: 'success',
     duration: 2000
   });
@@ -1257,7 +1257,7 @@ const importConfig = async () => {
 
     // 确认导入
     await ElMessageBox.confirm(
-      '导入配置将覆盖当前所有设置，确定要继续吗？',
+      '匯入配置將覆蓋當前所有設定，確定要繼續嗎？',
       '确认导入',
       {
         confirmButtonText: '确定导入',

@@ -146,13 +146,13 @@ const LLM = new Set(
 
 // 翻译模型名称
 const transModelName = {
-    ['machine']: '---【机器翻译】---',
-    [transModel.microsoft]: '微软翻译（推荐）',
-    [transModel.deepL]: 'DeepL翻译(需令牌)',
-    ['llm']: '---【AI翻译】---',
+    ['machine']: '---【機器翻譯】---',
+    [transModel.microsoft]: '微軟翻譯（推薦）',
+    [transModel.deepL]: 'DeepL 翻譯 (需 Token)',
+    ['llm']: '---【AI 翻譯】---',
     [transModel.moonshot]: 'Moonshot',
-    [transModel.zhipu]: '智谱清言',
-    [transModel.tongyi]: '通义千问',
+    [transModel.zhipu]: '智譜清言',
+    [transModel.tongyi]: '通義千問',
     [transModel.yiyan]: '文心一言',
     [transModel.openai]: 'ChatGPT',
     [transModel.gemini]: 'Gemini',
@@ -162,10 +162,10 @@ const transModelName = {
 
 // 错误类型
 const errorManager = {
-    unknownError: "未知错误",
-    netError: "网络超时，请稍后重试",
-    authFailed: "认证失败，请检查 token 是否正确",
-    quota: "每分钟翻译次数已达上限，请稍后再试",
+    unknownError: "未知錯誤",
+    netError: "網路超時，請稍後重試",
+    authFailed: "認證失敗，請檢查 Token 是否正確",
+    quota: "每分鐘翻譯次數已達上限，請稍後再試",
 }
 
 // 模型类型
@@ -334,9 +334,9 @@ const toast = Swal.mixin({
 
 // 多语言管理对象
 const langManager = {
-    auto: '自动检测',  // 自动检测
-    zh: 'zh-Hans',    // 简体中文
-    cht: 'zh-Hant',   // 繁体中文
+    auto: '自動檢測',  // 自动检测
+    zh: 'zh-Hans',    // 簡體中文
+    cht: 'zh-Hant',   // 正體中文
     en: 'en',         // 英语
     jp: 'ja',         // 日语
     kor: 'ko',        // 韩语
@@ -354,8 +354,8 @@ const langManager = {
     hi: 'hi',         // 印地语
     per: 'fa',        // 波斯语
     // from、to 源语言、目标语言
-    from: {auto: '自动检测'},
-    to: {'zh-Hans': '简体中文', 'en': '英语',},
+    from: {auto: '自動檢測'},
+    to: {'zh-Hans': '簡體中文', 'en': '英語',},
     // 解析语言种类
     parseLanguage(language) {
         return langManager[language] || language || 'en';
@@ -376,7 +376,7 @@ const langManager = {
 // 快捷键
 const shortcutManager = {
     currentShortcut: null,
-    hotkeyOptions: {Control: 'Control', Alt: 'Alt', Shift: 'Shift', '`': '反引号键'},
+    hotkeyOptions: {Control: 'Control', Alt: 'Alt', Shift: 'Shift', '`': '波浪號鍵'},
     hotkeyPressed: false,
 }
 // 自定义 GPT地址
@@ -411,7 +411,7 @@ const settingManager = {
     generateOptions(options, selectedValue) {
         return Object.entries(options).map(([key, value]) => {
             // 检查是否为需要禁用的选项
-            const isDisabled = ['---【机器翻译】---', '---【AI翻译】---', '---【本地大模型】---'].includes(value);
+            const isDisabled = ['---【機器翻譯】---', '---【AI 翻譯】---', '---【本地大模型】---'].includes(value);
             return `<option value="${key}" ${selectedValue === key ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}>${value}</option>`;
         }).join('');
     },
@@ -421,57 +421,57 @@ const settingManager = {
         // 页面 dom
         const dom = `
   <div style="font-size: 1em;" xmlns="http://www.w3.org/1999/html">
-    <label class="instant-setting-label">快捷键<select id="fluent-read-hotkey" class="instant-setting-common">${this.generateOptions(shortcutManager.hotkeyOptions, util.getValue('hotkey'))}</select></label>
-    <label class="instant-setting-label">翻译源语言<select id="fluent-read-from" class="instant-setting-common">${this.generateOptions(langManager.from, langManager.getFrom())}</select></label>
-    <label class="instant-setting-label">翻译目标语言<select id="fluent-read-to" class="instant-setting-common">${this.generateOptions(langManager.to, langManager.getTo())}</select></label>
-    <label class="instant-setting-label">翻译服务<select id="fluent-read-model" class="instant-setting-select">${this.generateOptions(transModelName, util.getValue('model'))}</select></label>
+    <label class="instant-setting-label">快捷鍵<select id="fluent-read-hotkey" class="instant-setting-common">${this.generateOptions(shortcutManager.hotkeyOptions, util.getValue('hotkey'))}</select></label>
+    <label class="instant-setting-label">翻譯來源語言<select id="fluent-read-from" class="instant-setting-common">${this.generateOptions(langManager.from, langManager.getFrom())}</select></label>
+    <label class="instant-setting-label">翻譯目標語言<select id="fluent-read-to" class="instant-setting-common">${this.generateOptions(langManager.to, langManager.getTo())}</select></label>
+    <label class="instant-setting-label">翻譯服務<select id="fluent-read-model" class="instant-setting-select">${this.generateOptions(transModelName, util.getValue('model'))}</select></label>
     
     <!--支持 ollama 等自定义模型名称-->
     <label class="instant-setting-label" id="fluent-read-custom-type-label" style="display: none;">
-    <span class="fluent-read-tooltip">自定义模型类型
+    <span class="fluent-read-tooltip">自定義模型類型
             <span class="fluent-read-tooltiptext">
-            请填写模型类型全称，如：gemma:7b、llama2:7b
+            請填寫模型類型全稱，如：gemma:7b、llama2:7b
             </span>
         </span>
     <input type="text" class="instant-setting-input" id="fluent-read-custom-type" value="${optionsManager.getOption(util.getValue('model'))}" ></label>
     
-    <label class="instant-setting-label" id="fluent-read-option-label" style="display: none;">模型类型<select id="fluent-read-option" class="instant-setting-select"></select></label> 
+    <label class="instant-setting-label" id="fluent-read-option-label" style="display: none;">模型類型<select id="fluent-read-option" class="instant-setting-select"></select></label> 
     <!-- custom 输入框-->
     <label class="instant-setting-label" id="fluent-read-custom-label" style="display: none;">
-        <span class="fluent-read-tooltip">自定义 GPT 地址
+        <span class="fluent-read-tooltip">自定義 GPT 位址
             <span class="fluent-read-tooltiptext">
-            1、支持 OpenAI 官方地址，如：https://api.openai.com/v1/chat/completions
+            1、支持 OpenAI 官方位址，如：https://api.openai.com/v1/chat/completions
             </br>
             2、支持 Cloudflare 代理，如：https://gateway.ai.cloudflare.com/.../openai/chat/completions
             </br>
-            3、支持国内开源代理，如：https://api.chatanywhere.com.cn/v1/chat/completions
+            3、支持國內開源代理，如：https://api.chatanywhere.com.cn/v1/chat/completions
             </br>
             4、支持本地代理，如：http://localhost:11434/v1/chat/completions
             </br>
-            5、由于浏览器安全限制，如需支持其他代理，请于 GitHub 提 issue.
+            5、由於瀏覽器安全限制，如需支持其他代理，請於 GitHub 提 issue.
             </span>
         </span>
         <input type="text" class="instant-setting-input" id="fluent-read-custom" value="${customGPT.getGPTUrl()}" >
     </label>
     <!-- 令牌区域 -->
-    <label class="instant-setting-label" id="fluent-read-token-label" style="display: none;">token令牌<input type="text" class="instant-setting-input" id="fluent-read-token" value="" ></label>
-    <label class="instant-setting-label" id="fluent-read-ak-label" style="display: none;">ak令牌<input type="text" class="instant-setting-input" id="fluent-read-ak" value="" ></label>
-    <label class="instant-setting-label" id="fluent-read-sk-label" style="display: none;">sk令牌<input type="text" class="instant-setting-input" id="fluent-read-sk" value="" ></label>
+    <label class="instant-setting-label" id="fluent-read-token-label" style="display: none;">Token<input type="text" class="instant-setting-input" id="fluent-read-token" value="" ></label>
+    <label class="instant-setting-label" id="fluent-read-ak-label" style="display: none;">AK<input type="text" class="instant-setting-input" id="fluent-read-ak" value="" ></label>
+    <label class="instant-setting-label" id="fluent-read-sk-label" style="display: none;">SK<input type="text" class="instant-setting-input" id="fluent-read-sk" value="" ></label>
     <!-- 添加的输入区域 -->
     <label class="instant-setting-label" id="fluent-read-system-label" style="display: none;">
-        <span class="fluent-read-tooltip">system角色设定<span class="fluent-read-tooltiptext">模型角色设定，如：你是一名专业的翻译家</span></span>
+        <span class="fluent-read-tooltip">System 角色設定<span class="fluent-read-tooltiptext">模型角色設定，如：你是一名專業的翻譯家</span></span>
         <textarea class="instant-setting-textarea" id="fluent-read-system-message">${chatMgs.getSystemMsg()}</textarea>
     </label>
     <label class="instant-setting-label" id="fluent-read-user-label" style="display: none;">
-        <span class="fluent-read-tooltip">user消息模板<span class="fluent-read-tooltiptext">用户对话内容，如：请你翻译 Hello</br>注意：{{text}} 是你需要翻译的原文，不可缺少。</span></span>
+        <span class="fluent-read-tooltip">User 訊息模板<span class="fluent-read-tooltiptext">用戶對話內容，如：請你翻譯 Hello</br>注意：{{text}} 是你需要翻譯的原文，不可缺少。</span></span>
         <textarea class="instant-setting-textarea" id="fluent-read-user-message">${chatMgs.getOriginUserMsg()}</textarea>
     </label>
   </div>`;
         Swal.fire({
-                title: '设置中心',
+                title: '設定中心',
                 html: dom,
                 showCancelButton: true,
-                confirmButtonText: '保存并刷新页面',
+                confirmButtonText: '儲存並重新整理頁面',
                 cancelButtonText: '取消',
                 customClass: toastClass
             },
@@ -485,7 +485,7 @@ const settingManager = {
                         if (!ok) {
                             toast.fire({
                                 icon: 'error',
-                                title: '自定义地址不合法，请检查后重试！'
+                                title: '自定義位址不合法，請檢查後重試！'
                             });
                             return
                         }
@@ -522,7 +522,7 @@ const settingManager = {
                     chatMgs.setSystemMsg(util.getElementValue('fluent-read-system-message'));
                     chatMgs.setUserMsg(util.getElementValue('fluent-read-user-message'));
 
-                    toast.fire({icon: 'success', title: '设置成功！'});
+                    toast.fire({icon: 'success', title: '設定成功！'});
                     history.go(0); // 刷新页面
                 }
             }
@@ -618,12 +618,12 @@ const settingManager = {
     ,
     setHotkey() {
         Swal.fire({
-            title: '快捷键设置',
-            text: '请选择鼠标快捷键',
+            title: '快捷鍵設定',
+            text: '請選擇滑鼠快捷鍵',
             input: 'select',
             inputValue: util.getValue('hotkey'),
             inputOptions: shortcutManager.hotkeyOptions,
-            confirmButtonText: '保存并刷新页面',
+            confirmButtonText: '儲存並重新整理頁面',
             cancelButtonText: '取消',
             showCancelButton: true,
             customClass: toastClass,
@@ -631,7 +631,7 @@ const settingManager = {
             if (result.isConfirmed) {
                 util.setValue('hotkey', result.value);
                 setShortcut(result.value);
-                toast.fire({icon: 'success', title: '快捷键设置成功！'});
+                toast.fire({icon: 'success', title: '快捷鍵設定成功！'});
                 history.go(0); // 刷新页面
             }
         });
@@ -648,19 +648,19 @@ const settingManager = {
             inputOptions: langManager.to,
         }
         Swal.fire({
-            title: args.notion + '语言设置',
-            text: '请选择翻译' + args.notion + '语言',
+            title: args.notion + '語言設定',
+            text: '請選擇翻譯' + args.notion + '語言',
             input: 'select',
             inputValue: args.inputValue,
             inputOptions: args.inputOptions,
-            confirmButtonText: '保存并刷新页面',
+            confirmButtonText: '儲存並重新整理頁面',
             cancelButtonText: '取消',
             showCancelButton: true,
             customClass: toastClass,
         }).then(async (result) => {
             if (result.isConfirmed) {
                 langManager.setFromTo(langManager.getFrom(), result.value);
-                toast.fire({icon: 'success', title: args.notion + '语言设置成功！'});
+                toast.fire({icon: 'success', title: args.notion + '語言設定成功！'});
                 history.go(0); // 刷新页面
             }
         });

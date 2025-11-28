@@ -4,7 +4,7 @@ import {config} from "@/entrypoints/utils/config";
 
 async function deeplx(message: any) {
     // deeplx 不支持 zh-Hans，需要转换为 zh
-    let targetLang = config.to === 'zh-Hans' ? 'zh' : config.to;
+    let targetLang = config.to === 'zh-Hans' ? 'zh' : (config.to === 'zh-Hant' ? 'ZH-HANT' : config.to);
     let sourceLang = config.from === 'auto' ? 'auto' : config.from;
     
     // 判断是否使用代理或自定义URL

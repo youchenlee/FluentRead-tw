@@ -15,9 +15,9 @@
           @mouseenter="handleMouseEnterTooltip"
           @mouseleave="handleMouseLeaveTooltip">
         <div class="fr-tooltip-header">
-          <span>翻译结果<small>（via 流畅阅读）</small></span>
+          <span>翻譯結果<small>（via 流暢閱讀）</small></span>
           <div class="fr-tooltip-actions">
-            <button class="fr-action-btn" @click="copyTranslation" title="复制译文">
+            <button class="fr-action-btn" @click="copyTranslation" title="複製譯文">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -47,7 +47,7 @@
             <!-- 译文显示（双语模式和只显示译文模式都显示） -->
             <div v-if="config.selectionTranslatorMode === 'bilingual' || config.selectionTranslatorMode === 'translation-only'" class="fr-translation-result fr-no-select">
               <pre>{{ translationResult }}</pre>
-              <button class="fr-text-audio-btn" @click="(e) => toggleAudio(translationResult, e)" title="播放/停止译文">
+              <button class="fr-text-audio-btn" @click="(e) => toggleAudio(translationResult, e)" title="播放/停止譯文">
                 <svg v-if="isPlaying && currentPlayingText === translationResult" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="6" y="4" width="4" height="16"></rect>
                   <rect x="14" y="4" width="4" height="16"></rect>
@@ -67,7 +67,7 @@
                   <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
                 </svg>
               </div>
-              <span>正在播放: {{ currentPlayingText === selectedText ? '原文' : '译文' }}</span>
+              <span>正在播放: {{ currentPlayingText === selectedText ? '原文' : '譯文' }}</span>
               <button class="fr-stop-audio-btn" @click="(e) => stopAudio(e)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="6" y="4" width="4" height="16"></rect>
@@ -87,7 +87,7 @@
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
       </div>
-      <span>复制译文成功!</span>
+      <span>複製譯文成功!</span>
     </div>
   </teleport>
 </template>
